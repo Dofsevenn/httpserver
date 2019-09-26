@@ -1,5 +1,8 @@
 package no.kristiania;
 
+import java.io.IOException;
+import java.net.Socket;
+
 public class HttpClient {
 
 
@@ -13,13 +16,13 @@ public class HttpClient {
         this.requestTarget = requestTarget;
     }
 
-    public HttpClientResponse execute() {
-       /* Socket socket = new Socket(hostname, port);
+    public HttpClientResponse execute() throws IOException {
+       Socket socket = new Socket(hostname, port);
 
         socket.getOutputStream().write(("GET " + requestTarget + " HTTP/1.1\r\n" +
                 "Host: " + hostname + "\r\n" +
                 "\r\n").getBytes());
-        socket.getOutputStream().flush();*/
+        socket.getOutputStream().flush();
 
         return new HttpClientResponse();
     }
