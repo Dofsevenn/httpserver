@@ -1,8 +1,7 @@
-# <Skriv tittel på prosjektet>
+# KM-HTTP server
 
-[![Build Status](https://travis-ci.com/Westerdals/prosjektnavn.svg?token=Sj4fcBr8hVerjvQWkoAz&branch=master)](https://travis-ci.com/Westerdals/prosjektnavn)
-
-<En kort forklaring på hva dette prosjektet inneholder>
+[![Build Status](https://travis-ci.com/Westerdals/pgr203-assignment-2-Dofsevenn.svg?token=YBJah3bfL5EzDWyCmak7&branch=master)](https://travis-ci.com/Westerdals/pgr203-assignment-2-Dofsevenn)
+Http server that responds to /echo and serves files
 
 ## Usage
 
