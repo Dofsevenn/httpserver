@@ -1,6 +1,7 @@
 package no.kristiania;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
 
 public class HttpClient {
@@ -24,6 +25,12 @@ public class HttpClient {
                 "\r\n").getBytes());
         socket.getOutputStream().flush();
 
+        String statusLine = readLine(socket.getInputStream());
+
         return new HttpClientResponse();
+    }
+
+    private String readLine(InputStream inputStream) {
+        return new StringBuilder().toString();
     }
 }
