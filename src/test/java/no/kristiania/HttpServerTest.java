@@ -11,6 +11,7 @@ public class HttpServerTest {
     @Test
     void shouldGet200StatusCode() throws IOException {
         HttpServer server = new HttpServer(0);
+        server.start();
         HttpClient client = new HttpClient("localhost", server.getPort(), "/echo");
         assertEquals(200, client.execute().getStatusCode());
     }

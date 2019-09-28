@@ -7,38 +7,38 @@ import java.net.Socket;
 public class HttpServer {
 
 
-    public HttpServer(int port) {
+    private ServerSocket serverSocket;
 
+    public HttpServer(int port) throws IOException {
+
+        serverSocket = new ServerSocket(8080);
     }
 
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(8080);
+        new HttpServer(8080).start();
+    }
 
-        Socket socket = serverSocket.accept();
+    void start() {
 
-        StringBuilder readLine = new StringBuilder();
-        int c;
-        while((c = socket.getInputStream().read()) != -1) {
-            if(c == '\r') {
-                c = socket.getInputStream().read();
-                System.out.println(readLine);
-                if(readLine.toString().isBlank()) {
-                    break;
-                }
-                readLine = new StringBuilder();
-            }
-            readLine.append((char)c);
+        new Thread(this::run).start();
+    }
+
+    private void run() {
+        try {
+            Socket socket = serverSocket.accept();
+
+            socket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
+                    "Content-type: text/plain\r\n" +
+                    "Content-length: 12\r\n" +
+                    "Connection: close\r\n" +
+                    "\r\n" +
+                    "Hello World!").getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        socket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
-                "Content-type: text/plain\r\n" +
-                "Content-length: 12\r\n" +
-                "Connection: close\r\n" +
-                "\r\n" +
-                "Hello World!").getBytes());
     }
 
     public int getPort() {
-        return 0;
+        return serverSocket.getLocalPort();
     }
 }
