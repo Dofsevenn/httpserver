@@ -27,6 +27,9 @@ public class HttpServer {
         try {
             Socket socket = serverSocket.accept();
 
+
+
+
             socket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
                     "Content-type: text/plain\r\n" +
                     "Content-length: 12\r\n" +
