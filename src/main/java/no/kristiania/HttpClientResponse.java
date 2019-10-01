@@ -5,9 +5,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import static no.kristiania.HttpClient.readLine;
-
-public class HttpClientResponse {
+public class HttpClientResponse extends HttpMessage {
 
     private String statusLine;
     private Map<String, String> heathers = new HashMap<>();
