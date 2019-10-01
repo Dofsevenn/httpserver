@@ -11,7 +11,7 @@ public class HttpServer {
 
     public HttpServer(int port) throws IOException {
 
-        serverSocket = new ServerSocket(8080);
+        serverSocket = new ServerSocket(port);
     }
 
     public static void main(String[] args) throws IOException {
@@ -28,9 +28,20 @@ public class HttpServer {
             Socket socket = serverSocket.accept();
 
 
+            String requestLine = HttpClient.readLine(socket.getInputStream());
 
+            String statusCode = "200";
 
-            socket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
+            String requestTarget = requestLine.split(" ")[1];
+            int questionPos = requestTarget.indexOf('?');
+            if(questionPos != -1) {
+                String query = requestTarget.substring(questionPos);
+                int equalsPos = query.indexOf('=');
+                String parameterValue = query.substring(equalsPos+1);
+                statusCode = parameterValue;
+            }
+
+            socket.getOutputStream().write(("HTTP/1.1 " + statusCode + " OK\r\n" +
                     "Content-type: text/plain\r\n" +
                     "Content-length: 12\r\n" +
                     "Connection: close\r\n" +
