@@ -27,8 +27,8 @@ public class HttpServer {
         try {
             Socket socket = serverSocket.accept();
 
-
-            String requestLine = HttpClientResponse.readLine(socket.getInputStream());
+            HttpServerRequest request = new HttpServerRequest(socket.getInputStream());
+            String requestLine = request.getStartLine();
 
             String statusCode = "200";
 
@@ -41,7 +41,6 @@ public class HttpServer {
                 statusCode = parameterValue;
             }
 
-            HttpServerRequest request = new HttpServerRequest();
 
             socket.getOutputStream().write(("HTTP/1.1 " + statusCode + " OK\r\n" +
                     "Content-type: text/plain\r\n" +

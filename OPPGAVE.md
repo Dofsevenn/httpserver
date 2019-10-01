@@ -22,18 +22,18 @@ Maven prosjektet skal bygge en executable jar fil med `mvn package` og denne den
     * [ ] `/echo?body=Hello+world`
 * [ ] Webserveren kan levere `index.html`
 * [ ] Webserveren kan serve mer enn én http request før den må restartes
-* [ ] Koden inneholder et godt sett med tester og testene kjører i Travis CI. Test av serveren skal bruke deres egen http client klasse
-* [ ] Koden inneholder en HttpClient klasse med tester mot `http://urlecho.appspot.com`
-* [ ] GitHub repository er private
-* [ ] Veilederne er lagt til som Collaborators på GitHub repository (`alacho2`, `aridder`, `asmadsen`)
+* [x] Koden inneholder et godt sett med tester og testene kjører i Travis CI. Test av serveren skal bruke deres egen http client klasse
+* [x] Koden inneholder en HttpClient klasse med tester mot `http://urlecho.appspot.com`
+* [x] GitHub repository er private
+* [x] Veilederne er lagt til som Collaborators på GitHub repository (`alacho2`, `aridder`, `asmadsen`)
 * [ ] Dere har lastet opp ZIP (Download fra GitHub-siden til repository) og lagt ved link til GitHub repository i Canvas
 
 ## Sjekkliste for god leveranse
 
-* [ ] `.gitignore` hindrer `target/`, `.idea` og `*.iml` fra å sjekkes inn ved uhell
+* [x] `.gitignore` hindrer `target/`, `.idea` og `*.iml` fra å sjekkes inn ved uhell
 * [ ] Serveren hindrer klienten fra å lese filer utenfor `src/main/resources`
-* [ ] Navn på pakker, klasser og metoder skal følge vanlig Java-konvensjon når det gjelder små og store bokstaver
-* [ ] Indentering skal følge vanlig Java-konvensjon
+* [x] Navn på pakker, klasser og metoder skal følge vanlig Java-konvensjon når det gjelder små og store bokstaver
+* [x] Indentering skal følge vanlig Java-konvensjon
 * [ ] `README.md` inneholder link til en diagram som viser strukturen på koden
 * [ ] Server skriver nyttige loggmeldinger, inkludert informasjon om hvilken URL den kjører på ved oppstart
 
