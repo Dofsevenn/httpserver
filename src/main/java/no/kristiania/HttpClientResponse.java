@@ -12,4 +12,8 @@ public class HttpClientResponse {
     public int getStatusCode() {
         return Integer.parseInt(statusLine.split(" ")[1]);
     }
+
+    public String getHeather(String heatherName) {
+        return null;
+    }
 }

@@ -19,4 +19,10 @@ public class HttpClientTest {
         HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo?status=401");
         assertEquals(401, client.execute().getStatusCode());
     }
+
+    @Test
+    void shouldReadHeathers() throws IOException {
+        HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo?content-type=text/html");
+        assertEquals("test/html", client.execute().getHeather("content-type"));
+    }
 }
