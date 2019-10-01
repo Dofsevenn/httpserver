@@ -8,6 +8,7 @@ public class HttpServer {
 
 
     private ServerSocket serverSocket;
+    private String location = null;
 
     public HttpServer(int port) throws IOException {
 
@@ -35,16 +36,26 @@ public class HttpServer {
             String requestTarget = requestLine.split(" ")[1];
             int questionPos = requestTarget.indexOf('?');
             if(questionPos != -1) {
-                String query = requestTarget.substring(questionPos);
-                int equalsPos = query.indexOf('=');
-                String parameterValue = query.substring(equalsPos+1);
-                statusCode = parameterValue;
+                String query = requestTarget.substring(questionPos+1);
+                for (String parameter : query.split("&")) {
+                    int equalsPos = query.indexOf('=');
+                    String parameterValue = query.substring(equalsPos+1);
+                    String parameterName = parameter.substring(0, equalsPos);
+                    if(parameterName.equals("status")) {
+                    statusCode = parameterValue;
+                    }
+                    if(parameterName.equals("location")) {
+                        location = parameterValue;
+                    }
+                }
+
             }
 
 
             socket.getOutputStream().write(("HTTP/1.1 " + statusCode + " OK\r\n" +
                     "Content-type: text/plain\r\n" +
                     "Content-length: 12\r\n" +
+                    (location != null ? "location: " + location + "\r\n" : "") +
                     "Connection: close\r\n" +
                     "\r\n" +
                     "Hello World!").getBytes());

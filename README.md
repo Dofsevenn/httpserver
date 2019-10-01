@@ -1,7 +1,10 @@
 # KM-HTTP server
 
 [![Build Status](https://travis-ci.com/Westerdals/pgr203-assignment-2-Dofsevenn.svg?token=YBJah3bfL5EzDWyCmak7&branch=master)](https://travis-ci.com/Westerdals/pgr203-assignment-2-Dofsevenn)
+
 Http server that responds to /echo and serves files
+
+Link til gitHub: https://github.com/Westerdals/pgr203-assignment-2-Dofsevenn
 
 ## Usage
 
