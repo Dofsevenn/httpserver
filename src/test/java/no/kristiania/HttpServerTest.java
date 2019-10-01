@@ -19,15 +19,23 @@ public class HttpServerTest {
 
     @Test
     void shouldGetStatusCode200() throws IOException {
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/echo");
+        HttpClient client = new HttpClient("localhost", server.getPort(),
+                "/echo");
         assertEquals(200, client.execute().getStatusCode());
     }
 
     @Test
     void shouldGetStatusCode401() throws IOException {
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/echo?status=401");
+        HttpClient client = new HttpClient("localhost", server.getPort(),
+                "/echo?status=401");
         assertEquals(401, client.execute().getStatusCode());
     }
 
-
+    @Test
+    void shouldReturnHeathers() throws IOException {
+        HttpClient client = new HttpClient("localhost", server.getPort(),
+                "/echo?status=302&location=http//www.example.com");
+        assertEquals(302, client.execute().getStatusCode());
+        assertEquals("http.//www.example.com", client.execute().getHeather("location"));
+    }
 }
