@@ -25,10 +25,7 @@ public class HttpClient {
                 "\r\n").getBytes());
         socket.getOutputStream().flush();
 
-        String statusLine = readLine(socket.getInputStream());
-        System.out.println(statusLine);
-
-        return new HttpClientResponse(statusLine);
+        return new HttpClientResponse(socket.getInputStream());
     }
 
     public static String readLine(InputStream inputStream) throws IOException {
