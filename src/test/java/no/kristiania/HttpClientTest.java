@@ -23,9 +23,9 @@ public class HttpClientTest {
     }
 
     @Test
-    void shouldReadHeathers() throws IOException {
+    void shouldReadHeaders() throws IOException {
         HttpClient client = new HttpClient(URLECHO, 80, "/echo?content-type=text/plain");
-        assertEquals("text/plain; charset=utf-8", client.execute().getHeather("content-type"));
+        assertEquals("text/plain; charset=utf-8", client.execute().getHeader("content-type"));
     }
 
     @Test

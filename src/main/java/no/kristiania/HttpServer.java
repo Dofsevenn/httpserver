@@ -1,5 +1,7 @@
 package no.kristiania;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -19,6 +21,7 @@ public class HttpServer {
 
     public static void main(String[] args) throws IOException {
         new HttpServer(8080).start();
+
     }
 
     void start() {
@@ -40,7 +43,12 @@ public class HttpServer {
             Map<String, String> requestParameters = parseRequestParameters(query);
 
             if (!requestPath.equals("/echo")) {
-                
+                File file = new File(fileLocation + requestPath);
+                socket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
+                        "Content-Length: " + file.length() + "\r\n" +
+                        "Connection: close\r\n" + "\r\n").getBytes());
+
+                new FileInputStream(file).transferTo(socket.getOutputStream());
                 return;
             }
 

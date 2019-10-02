@@ -34,12 +34,12 @@ public class HttpServerTest {
     }
 
     @Test
-    void shouldReturnHeathers() throws IOException {
+    void shouldReturnHeaders() throws IOException {
         HttpClient client = new HttpClient("localhost", server.getPort(),
                 "/echo?status=302&location=http://www.example.com");
         HttpClientResponse response = client.execute();
         assertEquals(302, response.getStatusCode());
-        assertEquals("http://www.example.com", response.getHeather("location"));
+        assertEquals("http://www.example.com", response.getHeader("location"));
     }
 
     @Test

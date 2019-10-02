@@ -8,31 +8,31 @@ import java.util.Map;
 public class HttpMessage {
     protected String body;
     protected String startLine;
-    protected Map<String, String> heathers = new HashMap<>();
+    protected Map<String, String> headers = new HashMap<>();
 
     public HttpMessage(InputStream inputStream) throws IOException {
         startLine = readLine(inputStream);
-        String heatherLine;
-        while(!(heatherLine = readLine(inputStream)).isBlank()) {
-            int colonPos = heatherLine.indexOf(":");
-            String heatherName = heatherLine.substring(0, colonPos).trim();
-            String heatherValue = heatherLine.substring(colonPos+1).trim();
-            System.out.println("HeatherLine: " + heatherName + " ->" + heatherValue);
-            heathers.put(heatherName.toLowerCase(), heatherValue);
+        String headerLine;
+        while(!(headerLine = readLine(inputStream)).isBlank()) {
+            int colonPos = headerLine.indexOf(":");
+            String headerName = headerLine.substring(0, colonPos).trim();
+            String headerValue = headerLine.substring(colonPos+1).trim();
+            System.out.println("HeaderLine: " + headerName + " ->" + headerValue);
+            headers.put(headerName.toLowerCase(), headerValue);
         }
         System.out.println();
 
-        if(getHeather("content-length") != null) {
+        if(getHeader("content-length") != null) {
             this.body = readBytes(inputStream, getContentLength());
         }
     }
 
-    public String getHeather(String heatherName) {
-        return heathers.get(heatherName.toLowerCase());
+    public String getHeader(String headerName) {
+        return headers.get(headerName.toLowerCase());
     }
 
     public int getContentLength() {
-        return Integer.parseInt(getHeather("content-length"));
+        return Integer.parseInt(getHeader("content-length"));
     }
 
     public static String readLine(InputStream inputStream) throws IOException {
