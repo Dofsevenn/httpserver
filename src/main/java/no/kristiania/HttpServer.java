@@ -8,7 +8,6 @@ public class HttpServer {
 
 
     private ServerSocket serverSocket;
-    private String location = null;
 
     public HttpServer(int port) throws IOException {
 
@@ -32,6 +31,7 @@ public class HttpServer {
             String requestLine = request.getStartLine();
 
             String statusCode = "200";
+            String location = null;
 
             String requestTarget = requestLine.split(" ")[1];
             int questionPos = requestTarget.indexOf('?');
