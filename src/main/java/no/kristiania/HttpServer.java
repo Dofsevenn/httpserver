@@ -20,7 +20,9 @@ public class HttpServer {
     }
 
     public static void main(String[] args) throws IOException {
-        new HttpServer(8080).start();
+        HttpServer httpServer = new HttpServer(8080);
+        httpServer.setFileLocation("src/main/resources");
+        httpServer.start();
 
     }
 
