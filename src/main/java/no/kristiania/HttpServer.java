@@ -39,10 +39,10 @@ public class HttpServer {
                 String query = requestTarget.substring(questionPos+1);
                 for (String parameter : query.split("&")) {
                     int equalsPos = query.indexOf('=');
-                    String parameterValue = query.substring(equalsPos+1);
+                    String parameterValue = parameter.substring(equalsPos+1);
                     String parameterName = parameter.substring(0, equalsPos);
                     if(parameterName.equals("status")) {
-                    statusCode = parameterValue;
+                        statusCode = parameterValue;
                     }
                     if(parameterName.equals("location")) {
                         location = parameterValue;
@@ -55,7 +55,7 @@ public class HttpServer {
             socket.getOutputStream().write(("HTTP/1.1 " + statusCode + " OK\r\n" +
                     "Content-type: text/plain\r\n" +
                     "Content-length: 12\r\n" +
-                    (location != null ? "location: " + location + "\r\n" : "") +
+                    (location != null ? "Location: " + location + "\r\n" : "") +
                     "Connection: close\r\n" +
                     "\r\n" +
                     "Hello World!").getBytes());

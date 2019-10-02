@@ -34,8 +34,9 @@ public class HttpServerTest {
     @Test
     void shouldReturnHeathers() throws IOException {
         HttpClient client = new HttpClient("localhost", server.getPort(),
-                "/echo?status=302&location=http//www.example.com");
-        assertEquals(302, client.execute().getStatusCode());
-        assertEquals("http.//www.example.com", client.execute().getHeather("location"));
+                "/echo?status=302&location=http://www.example.com");
+        HttpClientResponse response = client.execute();
+        assertEquals(302, response.getStatusCode());
+        assertEquals("http://www.example.com", response.getHeather("location"));
     }
 }

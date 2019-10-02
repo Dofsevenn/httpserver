@@ -28,5 +28,5 @@ hjemmefra.
 Måtte bruke slidene ganske mye
 fikk ikke websiden til å fungere
 fikke ikke return heathers testen til å fungere
-Alt har med for lite tid til å jobbe med dette pga private hendelser
+Alt har med for lite tid til å jobbe med dette pga private hendelser    
 
