@@ -5,15 +5,13 @@
 
 Http server that responds to /echo and serves files
 
-Link til gitHub: https://github.com/Westerdals/pgr203-assignment-2-Dofsevenn
-
 ## Usage
 
 1. Build project with mvn package
 2. jar http-server-1.0-SNAPSHOT.jar
 3. http://localhost:8080/index.html
 4. /echo?status=302&location=http://example.com
-5. <En til url for å kalle ECHO>
+5. /echo?body=HelloWorld
  
  ## Design (valgfritt)
  
