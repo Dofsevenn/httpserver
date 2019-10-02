@@ -10,6 +10,7 @@ public class HttpServer {
 
 
     private ServerSocket serverSocket;
+    private String fileLocation;
 
     public HttpServer(int port) throws IOException {
 
@@ -33,7 +34,15 @@ public class HttpServer {
             String requestLine = request.getStartLine();
 
             String requestTarget = requestLine.split(" ")[1];
-            Map<String, String> requestParameters = parseRequestParameters(requestTarget);
+            int questionPos = requestTarget.indexOf('?');
+            String query = questionPos != -1 ? requestTarget.substring(questionPos+1) : null;
+            String requestPath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;
+            Map<String, String> requestParameters = parseRequestParameters(query);
+
+            if (!requestPath.equals("/echo")) {
+                
+                return;
+            }
 
             String statusCode = requestParameters.getOrDefault("status", "200");
             String location = requestParameters.get("location");
@@ -51,11 +60,9 @@ public class HttpServer {
         }
     }
 
-    private Map<String, String> parseRequestParameters(String requestTarget) {
+    private Map<String, String> parseRequestParameters(String query) {
         Map<String, String> requestParameters = new HashMap<>();
-        int questionPos = requestTarget.indexOf('?');
-        if(questionPos != -1) {
-            String query = requestTarget.substring(questionPos+1);
+        if(query != null) {
             for (String parameter : query.split("&")) {
                 int equalsPos = parameter.indexOf("=");
                 String parameterValue = parameter.substring(equalsPos+1);
@@ -70,5 +77,9 @@ public class HttpServer {
 
     public int getPort() {
         return serverSocket.getLocalPort();
+    }
+
+    public void setFileLocation(String fileLocation) {
+        this.fileLocation = fileLocation;
     }
 }

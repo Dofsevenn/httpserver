@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -44,5 +46,14 @@ public class HttpServerTest {
     void shouldReturnBody() throws IOException {
         HttpClient client = new HttpClient("localhost", server.getPort(), "/echo?body=HelloWorld");
         assertEquals("HelloWorld", client.execute().getBody());
+    }
+
+    @Test
+    void shouldReturnFileFromDisk() throws IOException {
+        Files.writeString(Paths.get("target/mytestfile.txt"), "Hello Kristiania");
+        server.setFileLocation("target");
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/mytestfile.txt");
+        HttpClientResponse response = client.execute();
+        assertEquals("Hello Kristiania", response.getBody());
     }
 }
