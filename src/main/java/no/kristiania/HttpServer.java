@@ -37,14 +37,15 @@ public class HttpServer {
 
             String statusCode = requestParameters.getOrDefault("status", "200");
             String location = requestParameters.get("location");
+            String body = requestParameters.getOrDefault("body", "Hello World!");
 
             socket.getOutputStream().write(("HTTP/1.1 " + statusCode + " OK\r\n" +
                     "Content-type: text/plain\r\n" +
-                    "Content-length: 12\r\n" +
+                    "Content-length: " + body.length() + "\r\n" +
                     (location != null ? "Location: " + location + "\r\n" : "") +
                     "Connection: close\r\n" +
                     "\r\n" +
-                    "Hello World!").getBytes());
+                    body).getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

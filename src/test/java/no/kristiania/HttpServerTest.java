@@ -39,4 +39,10 @@ public class HttpServerTest {
         assertEquals(302, response.getStatusCode());
         assertEquals("http://www.example.com", response.getHeather("location"));
     }
+
+    @Test
+    void shouldReturnBody() throws IOException {
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/echo?body=HelloWorld");
+        assertEquals("HelloWorld", client.execute().getBody());
+    }
 }
