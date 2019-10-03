@@ -1,14 +1,10 @@
 package no.kristiania;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
 
-public class HttpServer {
+public class HttpServer implements Runnable {
 
 
     private ServerSocket serverSocket;
@@ -31,59 +27,25 @@ public class HttpServer {
         new Thread(this::run).start();
     }
 
-    private void run() {
-        try {
-            Socket socket = serverSocket.accept();
+    @Override
+    public void run() {
 
-            HttpServerRequest request = new HttpServerRequest(socket.getInputStream());
-            String requestLine = request.getStartLine();
+        while(serverSocket.isBound() && !serverSocket.isClosed()) {
 
-            String requestTarget = requestLine.split(" ")[1];
-            int questionPos = requestTarget.indexOf('?');
-            String query = questionPos != -1 ? requestTarget.substring(questionPos+1) : null;
-            String requestPath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;
-            Map<String, String> requestParameters = parseRequestParameters(query);
+            try {
+                Socket socket = serverSocket.accept();
+                SocketHandler handler = new SocketHandler(socket, fileLocation);
 
-            if (!requestPath.equals("/echo")) {
-                File file = new File(fileLocation + requestPath);
-                socket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
-                        "Content-Length: " + file.length() + "\r\n" +
-                        "Connection: close\r\n" + "\r\n").getBytes());
-
-                new FileInputStream(file).transferTo(socket.getOutputStream());
-                return;
-            }
-
-            String statusCode = requestParameters.getOrDefault("status", "200");
-            String location = requestParameters.get("location");
-            String body = requestParameters.getOrDefault("body", "Hello World!");
-
-            socket.getOutputStream().write(("HTTP/1.1 " + statusCode + " OK\r\n" +
-                    "Content-type: text/plain\r\n" +
-                    "Content-length: " + body.length() + "\r\n" +
-                    (location != null ? "Location: " + location + "\r\n" : "") +
-                    "Connection: close\r\n" +
-                    "\r\n" +
-                    body).getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private Map<String, String> parseRequestParameters(String query) {
-        Map<String, String> requestParameters = new HashMap<>();
-        if(query != null) {
-            for (String parameter : query.split("&")) {
-                int equalsPos = parameter.indexOf("=");
-                String parameterValue = parameter.substring(equalsPos+1);
-                String parameterName = parameter.substring(0, equalsPos);
-                requestParameters.put(parameterName, parameterValue);
-
+                new Thread(handler).start();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
         }
-        return requestParameters;
+
     }
+
+
 
     public int getPort() {
         return serverSocket.getLocalPort();

@@ -20,11 +20,12 @@ public class HttpMessage {
             System.out.println("HeaderLine: " + headerName + " ->" + headerValue);
             headers.put(headerName.toLowerCase(), headerValue);
         }
-        System.out.println();
+        System.out.println("End of InputStream");
 
         if(getHeader("content-length") != null) {
             this.body = readBytes(inputStream, getContentLength());
         }
+
     }
 
     public String getHeader(String headerName) {
