@@ -33,4 +33,6 @@ Regner med at dette kanskje har med øvelse å gjøre, og om man kjenner hverand
 * Vanskelig å refakturere på en god måte. Er stort sett med på det Johannes gjør i slidene, eller når vi får hjelp 
 av veiledere, men å finne det ut selv og skrive det er værre foreløpig
 
+ ### Har levert flere ganger
 
+Har levert 2 ganger ekstra etter å ha oppdater slik at serveren kan ta imot flere requests før serveren stenger
